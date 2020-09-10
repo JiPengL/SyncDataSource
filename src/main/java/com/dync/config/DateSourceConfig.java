@@ -20,7 +20,7 @@ import java.util.Map;
  * @desc ...
  */
 @Configuration
-//@MapperScan(basePackages = "com.example.dongtai.mapper") // mybitas 配置
+//@MapperScan(value = "com.clouder.platform.dao") // mybitas扫描dao
 public class DateSourceConfig {
 
 
