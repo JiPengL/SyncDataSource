@@ -6,6 +6,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,12 +18,13 @@ import java.sql.SQLException;
  * @desc ...
  */
 @Service
-public class TestServiceImpl{
+public class TestServiceImpl implements TestService{
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Master
+    @Transactional
     public Object getUserinfo(){
         String sql = "select * from user";
         jdbcTemplate.query(sql,
