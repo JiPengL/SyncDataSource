@@ -1,37 +1,45 @@
+/*
 package com.dync.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
+*/
 /**
  * @author liujipeng
  * @date 2020/6/16 16:29
  * @mail liujipeng@cloud-er.com
  * @desc ...
- */
-@Configuration
-public class DateSourceConfig {
+ *//*
 
+@Configuration
+@MapperScan(basePackages = "com.dync.dao")
+public class MybitasConfig {
+
+    private static final String MAPPER = "classpath:mapper/*.xml";
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.master")
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource masterDb(){
         DruidDataSource build = DruidDataSourceBuilder.create().build();
         return build;
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.slave")
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource slaveDb(){
         DruidDataSource build = DruidDataSourceBuilder.create().build();
         return build;
@@ -49,17 +57,19 @@ public class DateSourceConfig {
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate(@Qualifier("dynamicDb")DynamicDataSource dataSource){
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        return jdbcTemplate;
+    public DataSourceTransactionManager transactionManager(@Qualifier("dynamicDb")DynamicDataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 
-
     @Bean
-    public DataSourceTransactionManager manager(@Qualifier("dynamicDb")DynamicDataSource dataSource){
-        DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
-        dataSourceTransactionManager.setDataSource(dataSource);
-        return dataSourceTransactionManager;
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("dynamicDb")DynamicDataSource dataSource) throws Exception {
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        sqlSessionFactoryBean.setDataSource(dataSource);
+        sqlSessionFactoryBean.setMapperLocations(resolver.getResources(MAPPER));
+        SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBean.getObject();
+        return sqlSessionFactory;
     }
 
 }
+*/

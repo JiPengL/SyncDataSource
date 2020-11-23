@@ -29,4 +29,22 @@ public class Test {
         testService.getUser();
         return "success";
     }
+
+    /*test mybitas*/
+/*
+    @Autowired
+    private TestMybatis testMybatis;
+
+    @RequestMapping("/masterDb")
+    private String mybitasMaster(){
+        Object userinfo = testMybatis.getUserinfo();
+        System.out.println(JSONObject.toJSONString(userinfo));
+        return "success";
+    }
+
+    @RequestMapping("/slaveDb")
+    private String mybitasSlave(){
+        testMybatis.save();
+        return "success";
+    }*/
 }
