@@ -1,4 +1,5 @@
-# SyncDataSource
+SpringBoot+JDBCtTemplate+Mybatis
+
 
 SpringBoot+JDBCtTemplate 做的动态数据源切换。
 
